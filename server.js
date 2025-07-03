@@ -12,13 +12,15 @@ const contactRoutes = require('./routes/contactRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 const clubRoutes = require('./routes/clubRoutes');
 
-
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middlewares
-app.use(cors());
+// ✅ CORS Configuration: Allow Netlify frontend
+app.use(cors({
+  origin: "https://sybr-events-827085.netlify.app",
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Routes
@@ -29,10 +31,6 @@ app.use('/api', announcementRoutes);
 app.use('/api', contactRoutes);
 app.use('/api', feedbackRoutes);
 app.use('/api', clubRoutes);
-
-
-
-
 
 // Home Route
 app.get('/', (req, res) => {

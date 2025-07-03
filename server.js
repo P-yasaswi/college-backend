@@ -21,9 +21,10 @@ app.use(cors({
   credentials: true
 }));
 
+// ✅ Middleware to parse incoming JSON
 app.use(express.json());
 
-// Routes
+// ✅ API Routes
 app.use('/api', userRoutes);
 app.use('/api', eventRoutes);
 app.use('/api', registrationRoutes);
@@ -32,12 +33,12 @@ app.use('/api', contactRoutes);
 app.use('/api', feedbackRoutes);
 app.use('/api', clubRoutes);
 
-// Home Route
+// ✅ Health Check Route
 app.get('/', (req, res) => {
   res.send("🎉 College Event & Club Management Backend is Running");
 });
 
-// Connect MongoDB
+// ✅ MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -45,7 +46,7 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => {
   console.log("✅ MongoDB Connected");
   app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`🚀 Server running at https://college-backend-opcw.onrender.com`);
   });
 })
 .catch((err) => {

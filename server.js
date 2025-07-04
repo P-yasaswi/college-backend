@@ -25,9 +25,9 @@ app.use(cors({
 app.use(express.json());
 
 // ✅ API Routes
+app.use('/api', registrationRoutes);
 app.use('/api', userRoutes);
 app.use('/api', eventRoutes);
-app.use('/api', registrationRoutes);
 app.use('/api', announcementRoutes);
 app.use('/api', contactRoutes);
 app.use('/api', feedbackRoutes);

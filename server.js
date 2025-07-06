@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -15,13 +16,12 @@ const clubRoutes = require('./routes/clubRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ CORS Configuration: Allow Netlify frontend
+// ✅ CORS Configuration
 app.use(cors({
   origin: "https://sybr-events-827085.netlify.app",
   credentials: true
 }));
 
-// ✅ Middleware to parse incoming JSON
 app.use(express.json());
 
 // ✅ API Routes
@@ -33,22 +33,24 @@ app.use('/api', contactRoutes);
 app.use('/api', feedbackRoutes);
 app.use('/api', clubRoutes);
 
-// ✅ Health Check Route
+// ✅ Health Check
 app.get('/', (req, res) => {
   res.send("🎉 College Event & Club Management Backend is Running");
 });
 
-// ✅ MongoDB Connection
+// ✅ Connect MongoDB (non-blocking)
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 .then(() => {
   console.log("✅ MongoDB Connected");
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running at https://college-backend-opcw.onrender.com`);
-  });
 })
 .catch((err) => {
-  console.error("❌ MongoDB connection failed:", err);
+  console.error("❌ MongoDB connection failed:", err.message);
+});
+
+// ✅ Start the Server (always runs)
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
